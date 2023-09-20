@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Tab Manager</title>
+		<style>
+			body {
+				width: 300px;
+				height: 300px;
+				overflow-y: scroll;
+				padding: 10px;
+			}
+
+			.tab-grid {
+				display: grid;
+				grid-template-columns: repeat(
+					2,
+					1fr
+				); /* Adjust the number of columns as needed */
+				gap: 10px; /* Adjust the gap between grid items */
+			}
+
+			.tab-item {
+				padding: 10px;
+				border: 1px solid #ccc;
+				border-radius: 5px;
+				cursor: pointer;
+			}
+
+			.tab-item:hover {
+				background-color: #f0f0f0;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Opened Tabs</h1>
+		<div class="tab-grid" id="tabGrid">
+			<!-- Tabs will be dynamically added here using JavaScript -->
+		</div>
+
+		<script src="popup.js"></script>
+	</body>
+</html>
