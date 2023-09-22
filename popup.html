@@ -4,10 +4,14 @@
 		<title>Tab Manager</title>
 		<style>
 			body {
-				width: 300px;
-				height: 300px;
+				width: 400px;
+				height: 400px;
 				overflow-y: scroll;
+				/* overflow-x: hidden; */
 				padding: 10px;
+				/* display: flex; */
+				justify-content: center;
+				align-items: center;
 			}
 
 			.tab-grid {
@@ -17,24 +21,30 @@
 					1fr
 				); /* Adjust the number of columns as needed */
 				gap: 10px; /* Adjust the gap between grid items */
+				border: 1px solid #ccc;
+				border-radius: 5px;
 			}
 
 			.tab-item {
 				padding: 10px;
-				border: 1px solid #ccc;
-				border-radius: 5px;
 				cursor: pointer;
 			}
 
 			.tab-item:hover {
 				background-color: #f0f0f0;
 			}
+
+			.tab-icon {
+				width: 20px;
+				height: 20px;
+				margin-right: 10px;
+			}
 		</style>
 	</head>
 	<body>
 		<h1>Opened Tabs</h1>
-		<div class="tab-grid" id="tabGrid">
-			<!-- Tabs will be dynamically added here using JavaScript -->
+		<div class="boundry-grid" id="boundaryGrid">
+			<!-- Windows will be dynamically added here using JavaScript -->
 		</div>
 
 		<script src="popup.js"></script>
