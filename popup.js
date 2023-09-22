@@ -39,7 +39,7 @@ function populateTabsByWindow() {
 
 				// Create a span for the tab title
 				const tabTitle = document.createElement("span");
-				tabTitle.textContent = extractDomain(tab.url);
+				// tabTitle.textContent = extractDomain(tab.url);
 
 				tabItem.appendChild(tabIcon);
 				tabItem.appendChild(tabTitle);
