@@ -7,29 +7,58 @@
 				width: 400px;
 				height: 400px;
 				overflow-y: scroll;
-				/* overflow-x: hidden; */
-				padding: 1px;
-				/* display: flex; */
-				justify-content: center;
+				padding: 5px;
 				align-items: center;
+				background-color: #f0f0f0;
+				font-family: "Roboto", sans-serif;
 			}
 
+			.title {
+				color: black;
+				padding: 10px;
+				font-size: 24px;
+				text-align: center;
+				border-radius: 5px 5px 0 0;
+			}
+
+			.stats {
+				margin: 10px 0;
+				text-align: center;
+			}
 			.tab-grid {
 				display: flex;
 				flex-wrap: wrap;
 				border: 2px solid #ccc;
-				border-radius: 2px;
+				border-radius: 5px;
+				background-color: white;
+				box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+			}
+
+			.window {
+				margin: 10px;
+			}
+
+			.window-title {
+				color: white;
+				font-size: 18px;
+				padding: 5px;
+				border-radius: 5px 5px 0 0;
 			}
 
 			.tab-item {
-				flex-basis: calc(20% - 8px);
-				padding: 2px;
+				display: flex;
+				padding: 5px;
 				cursor: pointer;
 				margin-right: 2px;
+				align-items: center;
+				border: 1px solid #ccc;
+				border-radius: 5px;
 			}
 
 			.tab-item:hover {
 				background-color: #f0f0f0;
+				transform: scale(1.05);
+				color: white;
 			}
 
 			.tab-icon {
@@ -40,7 +69,11 @@
 		</style>
 	</head>
 	<body>
-		<h1>Opened Tabs</h1>
+		<div class="title">Opened Tabs</div>
+		<div class="stats">
+			<span>Total Tabs: <span id="totalTabs">0</span></span>
+			<span>Total Windows: <span id="totalWindows">0</span></span>
+		</div>
 		<div class="boundry-grid" id="boundaryGrid">
 			<!-- Windows will be dynamically added here using JavaScript -->
 		</div>

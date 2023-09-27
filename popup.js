@@ -9,11 +9,24 @@ function extractDomain(url) {
 	return url;
 }
 
+function updateStats(windows) {
+	const totalWindows = windows.length;
+	const totalTabs = windows.reduce(
+		(acc, window) => acc + window.tabs.length,
+		0
+	);
+
+	document.getElementById("totalTabs").textContent = totalTabs;
+	document.getElementById("totalWindows").textContent = totalWindows;
+}
+
 function populateTabsByWindow() {
 	const boundaryGrid = document.getElementById("boundaryGrid"); // Updated element ID
 	boundaryGrid.innerHTML = "";
 
 	chrome.windows.getAll({ populate: true }, function (windows) {
+		updateStats(windows);
+
 		windows.forEach(function (window) {
 			const windowDiv = document.createElement("div");
 			windowDiv.classList.add("window"); // Updated class name
