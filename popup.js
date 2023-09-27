@@ -35,6 +35,19 @@ function updateStats(windows) {
 	document.getElementById("totalWindows").textContent = totalWindows;
 }
 
+function showTabInfo(tabTitle, tabDesc) {
+	const infoDiv = document.getElementById("info");
+	infoDiv.innerHTML = "";
+	const tabTitleSpan = document.createElement("span");
+	tabTitleSpan.classList.add("tab-info-title");
+	tabTitleSpan.textContent = tabTitle;
+	const tabDescSpan = document.createElement("span");
+	tabDescSpan.classList.add("tab-info-desc");
+	tabDescSpan.textContent = tabDesc;
+	infoDiv.appendChild(tabTitleSpan);
+	infoDiv.appendChild(tabDescSpan);
+}
+
 function goHome() {}
 function populateTabsByGroup() {
 	const boundaryGrid = document.getElementById("boundaryGrid");
@@ -81,6 +94,12 @@ function populateTabsByGroup() {
 								});
 							}
 						);
+					});
+
+					tabItem.addEventListener("mouseover", function () {
+						const tabTitle = tab.title;
+						const tabDesc = tab.url;
+						showTabInfo(tabTitle, tabDesc);
 					});
 				});
 
@@ -139,6 +158,11 @@ function populateTabsByWindow() {
 							});
 						}
 					);
+				});
+				tabItem.addEventListener("mouseover", function () {
+					const tabTitle = tab.title;
+					const tabDesc = tab.url;
+					showTabInfo(tabTitle, tabDesc);
 				});
 
 				tabGrid.appendChild(tabItem);
