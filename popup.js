@@ -9,6 +9,21 @@ function extractDomain(url) {
 	return url;
 }
 
+function groupTabsByDomain(tabs) {
+	const tabGroups = {};
+
+	tabs.forEach((tab) => {
+		const domain = extractDomain(tab.url);
+		if (tabGroups[domain]) {
+			tabGroups[domain].push(tab);
+		} else {
+			tabGroups[domain] = [tab];
+		}
+	});
+
+	return tabGroups;
+}
+
 function updateStats(windows) {
 	const totalWindows = windows.length;
 	const totalTabs = windows.reduce(
@@ -18,6 +33,62 @@ function updateStats(windows) {
 
 	document.getElementById("totalTabs").textContent = totalTabs;
 	document.getElementById("totalWindows").textContent = totalWindows;
+}
+
+function goHome() {}
+function populateTabsByGroup() {
+	const boundaryGrid = document.getElementById("boundaryGrid");
+	boundaryGrid.innerHTML = "";
+
+	chrome.tabs.query({}, (tabs) => {
+		const tabGroups = groupTabsByDomain(tabs);
+
+		for (const domain in tabGroups) {
+			if (tabGroups.hasOwnProperty(domain)) {
+				const tabGroup = tabGroups[domain];
+
+				const groupDiv = document.createElement("div");
+				groupDiv.classList.add("tab-group");
+
+				const groupTitle = document.createElement("div");
+				groupTitle.classList.add("group-title");
+				groupTitle.textContent = domain;
+
+				groupDiv.appendChild(groupTitle);
+
+				const tabGrid = document.createElement("div");
+				tabGrid.classList.add("tab-grid");
+
+				tabGroup.forEach((tab) => {
+					// Create tab items within the group
+					const tabItem = document.createElement("div");
+					tabItem.classList.add("tab-item");
+
+					// ... (Add tab content, icons, etc.)
+					const tabIcon = document.createElement("img");
+					tabIcon.src = tab.favIconUrl || "default-icon.png"; // Use a default icon if no favicon is available
+					tabIcon.classList.add("tab-icon");
+					tabItem.appendChild(tabIcon);
+
+					tabGrid.appendChild(tabItem);
+					tabItem.addEventListener("click", function () {
+						chrome.tabs.update(
+							tab.id,
+							{ active: true },
+							function (updatedTab) {
+								chrome.windows.update(updatedTab.windowId, {
+									focused: true,
+								});
+							}
+						);
+					});
+				});
+
+				groupDiv.appendChild(tabGrid);
+				boundaryGrid.appendChild(groupDiv);
+			}
+		}
+	});
 }
 
 function populateTabsByWindow() {
@@ -81,3 +152,17 @@ function populateTabsByWindow() {
 
 // Populate the grid when the popup is loaded
 document.addEventListener("DOMContentLoaded", populateTabsByWindow);
+
+document.addEventListener("DOMContentLoaded", function () {
+	const groupTabsButton = document.getElementById("groupTabsButton");
+	groupTabsButton.addEventListener("click", function () {
+		populateTabsByGroup();
+	});
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+	const homeButton = document.getElementById("homeButton");
+	homeButton.addEventListener("click", function () {
+		populateTabsByWindow();
+	});
+});

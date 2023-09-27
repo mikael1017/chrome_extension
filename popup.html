@@ -50,6 +50,8 @@
 				padding: 5px;
 				cursor: pointer;
 				margin-right: 2px;
+				margin-left: 2px;
+				margin-bottom: 2px;
 				align-items: center;
 				border: 1px solid #ccc;
 				border-radius: 5px;
@@ -67,9 +69,16 @@
 				/* margin-right: 10px; */
 			}
 		</style>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+		/>
 	</head>
 	<body>
 		<div class="title">Opened Tabs</div>
+		<button id="homeButton">
+			<i class="fas fa-home"></i>
+		</button>
 		<div class="stats">
 			<span>Total Tabs: <span id="totalTabs">0</span></span>
 			<span>Total Windows: <span id="totalWindows">0</span></span>
@@ -77,6 +86,7 @@
 		<div class="boundry-grid" id="boundaryGrid">
 			<!-- Windows will be dynamically added here using JavaScript -->
 		</div>
+		<button id="groupTabsButton">Group Tabs</button>
 
 		<script src="popup.js"></script>
 	</body>
