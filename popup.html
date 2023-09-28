@@ -32,11 +32,23 @@
 				font-size: 24px;
 				text-align: center;
 				border-radius: 5px 5px 0 0;
+				max-width: 400px;
+				height: 70px;
+				max-height: 70px;
+				overflow: auto;
 			}
 
 			.stats {
 				margin: 10px 0;
 				text-align: center;
+				max-width: 100%;
+				max-height: 50px;
+				overflow: auto;
+			}
+
+			.infoDiv {
+				max-height: 65px;
+				overflow: auto;
 			}
 			.tab-grid {
 				display: flex;
@@ -88,7 +100,7 @@
 		/>
 	</head>
 	<body>
-		<div class="title">Opened Tabs</div>
+		<div class="title" id="titleDiv">Opened Tabs</div>
 		<button id="homeButton">
 			<i class="fas fa-home"></i>
 		</button>

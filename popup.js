@@ -24,6 +24,15 @@ function groupTabsByDomain(tabs) {
 	return tabGroups;
 }
 
+function changeTitle(title) {
+	const titleDiv = document.getElementById("titleDiv");
+	titleDiv.innerHTML = "";
+	const tabTitleSpan = document.createElement("span");
+	tabTitleSpan.classList.add("tab-info-title");
+	tabTitleSpan.textContent = title;
+	titleDiv.appendChild(tabTitleSpan);
+}
+
 function updateStats(windows) {
 	const totalWindows = windows.length;
 	const totalTabs = windows.reduce(
@@ -35,23 +44,14 @@ function updateStats(windows) {
 	document.getElementById("totalWindows").textContent = totalWindows;
 }
 
-function showTabInfo(tabTitle, tabDesc) {
-	const infoDiv = document.getElementById("info");
-	infoDiv.innerHTML = "";
-	const tabTitleSpan = document.createElement("span");
-	tabTitleSpan.classList.add("tab-info-title");
-	tabTitleSpan.textContent = tabTitle;
-	const tabDescSpan = document.createElement("span");
-	tabDescSpan.classList.add("tab-info-desc");
-	tabDescSpan.textContent = tabDesc;
-	infoDiv.appendChild(tabTitleSpan);
-	infoDiv.appendChild(tabDescSpan);
+function showTabInfo(tabTitle) {
+	changeTitle(tabTitle);
 }
 
-function goHome() {}
 function populateTabsByGroup() {
 	const boundaryGrid = document.getElementById("boundaryGrid");
 	boundaryGrid.innerHTML = "";
+	changeTitle("Opened Tabs by Group");
 
 	chrome.tabs.query({}, (tabs) => {
 		const tabGroups = groupTabsByDomain(tabs);
@@ -98,8 +98,7 @@ function populateTabsByGroup() {
 
 					tabItem.addEventListener("mouseover", function () {
 						const tabTitle = tab.title;
-						const tabDesc = tab.url;
-						showTabInfo(tabTitle, tabDesc);
+						showTabInfo(tabTitle);
 					});
 				});
 
@@ -113,6 +112,7 @@ function populateTabsByGroup() {
 function populateTabsByWindow() {
 	const boundaryGrid = document.getElementById("boundaryGrid"); // Updated element ID
 	boundaryGrid.innerHTML = "";
+	changeTitle("Opened Tabs by Window");
 
 	chrome.windows.getAll({ populate: true }, function (windows) {
 		updateStats(windows);
