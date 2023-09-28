@@ -100,6 +100,10 @@ function populateTabsByGroup() {
 						const tabTitle = tab.title;
 						showTabInfo(tabTitle);
 					});
+
+					if (tab.active) {
+						tabItem.classList.add("highlighted");
+					}
 				});
 
 				groupDiv.appendChild(tabGrid);
@@ -164,6 +168,10 @@ function populateTabsByWindow() {
 					const tabDesc = tab.url;
 					showTabInfo(tabTitle, tabDesc);
 				});
+
+				if (tab.active) {
+					tabItem.classList.add("highlighted");
+				}
 
 				tabGrid.appendChild(tabItem);
 			});
