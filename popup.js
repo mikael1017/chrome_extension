@@ -9,6 +9,18 @@ function extractDomain(url) {
 	return url;
 }
 
+function createWindowWithTabs(tabs) {
+	console.log("createWindowWithTabs");
+	chrome.windows.create({}, (window) => {
+		const windowId = window.id;
+		const tabIds = tabs.map((tab) => tab.id);
+		chrome.tabs.move(tabIds, { windowId, index: -1 }, () => {
+			chrome.tabs.update(windowId, { focused: true });
+		});
+		console.log("Created window with tabs", window);
+	});
+}
+
 function groupTabsByDomain(tabs) {
 	const tabGroups = {};
 
@@ -48,8 +60,19 @@ function showTabInfo(tabTitle) {
 	changeTitle(tabTitle);
 }
 
+function hideGroupButton() {
+	const groupTabsButton = document.getElementById("groupTabsButton");
+	groupTabsButton.style.display = "none";
+}
+
+function showGroupButton() {
+	const groupTabsButton = document.getElementById("groupTabsButton");
+	groupTabsButton.style.display = "block";
+}
+
 function populateTabsByGroup() {
 	const boundaryGrid = document.getElementById("boundaryGrid");
+	hideGroupButton();
 	boundaryGrid.innerHTML = "";
 	changeTitle("Opened Tabs by Group");
 
@@ -69,8 +92,14 @@ function populateTabsByGroup() {
 
 				groupDiv.appendChild(groupTitle);
 
+				const tabRow = document.createElement("div");
+				tabRow.classList.add("tab-row");
 				const tabGrid = document.createElement("div");
 				tabGrid.classList.add("tab-grid");
+
+				const createButton = document.createElement("button");
+				createButton.classList.add("create-button");
+				createButton.textContent = "Create Window";
 
 				tabGroup.forEach((tab) => {
 					// Create tab items within the group
@@ -106,7 +135,13 @@ function populateTabsByGroup() {
 					}
 				});
 
-				groupDiv.appendChild(tabGrid);
+				createButton.addEventListener("click", function () {
+					createWindowWithTabs(tabGroup);
+				});
+
+				tabRow.appendChild(tabGrid);
+				tabRow.appendChild(createButton);
+				groupDiv.appendChild(tabRow);
 				boundaryGrid.appendChild(groupDiv);
 			}
 		}
@@ -116,6 +151,7 @@ function populateTabsByGroup() {
 function populateTabsByWindow() {
 	const boundaryGrid = document.getElementById("boundaryGrid"); // Updated element ID
 	boundaryGrid.innerHTML = "";
+	showGroupButton();
 	changeTitle("Opened Tabs by Window");
 
 	chrome.windows.getAll({ populate: true }, function (windows) {

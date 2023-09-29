@@ -2,121 +2,29 @@
 <html>
 	<head>
 		<title>Tab Manager</title>
-		<style>
-			body {
-				width: 400px;
-				height: 400px;
-				overflow-y: scroll;
-				padding: 5px;
-				align-items: center;
-				background-color: #f0f0f0;
-				font-family: "Roboto", sans-serif;
-			}
-			.tab-info-desc {
-				font-size: 14px; /* Adjust the font size as needed */
-				color: #666; /* Text color */
-				display: block;
-			}
-
-			.tab-info-title {
-				font-size: 18px; /* Adjust the font size as needed */
-				font-weight: bold;
-				color: #333; /* Text color */
-				margin-bottom: 5px;
-				display: block;
-			}
-
-			.tab-item.highlighted {
-				border: 2px solid #48cae4;
-				box-shadow: 0px 0px 5px #48cae4;
-			}
-
-			.title {
-				color: black;
-				padding: 10px;
-				font-size: 24px;
-				text-align: center;
-				border-radius: 5px 5px 0 0;
-				max-width: 400px;
-				height: 60px;
-				max-height: 60px;
-				overflow: auto;
-			}
-
-			.stats {
-				margin: 10px 0;
-				text-align: center;
-				max-width: 100%;
-				max-height: 50px;
-				overflow: auto;
-			}
-
-			.infoDiv {
-				max-height: 65px;
-				overflow: auto;
-			}
-			.tab-grid {
-				display: flex;
-				flex-wrap: wrap;
-				border: 2px solid #ccc;
-				border-radius: 5px;
-				background-color: white;
-				box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-			}
-
-			.window {
-				margin: 10px;
-			}
-
-			.window-title {
-				color: white;
-				font-size: 18px;
-				padding: 5px;
-				border-radius: 5px 5px 0 0;
-			}
-
-			.tab-item {
-				display: flex;
-				padding: 5px;
-				cursor: pointer;
-				margin-top: 2px;
-				margin-right: 2px;
-				margin-left: 2px;
-				margin-bottom: 2px;
-				align-items: center;
-				border: 2px solid #ccc;
-				border-radius: 5px;
-			}
-
-			.tab-item:hover {
-				background-color: #f0f0f0;
-				transform: scale(1.05);
-				color: white;
-			}
-
-			.tab-icon {
-				width: 20px;
-				height: 20px;
-				/* margin-right: 10px; */
-			}
-		</style>
+		<style></style>
+		<link rel="stylesheet" type="text/css" href="popup.css" />
 		<link
 			rel="stylesheet"
 			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
 		/>
 	</head>
 	<body>
-		<div class="title" id="titleDiv">Opened Tabs</div>
-		<button id="homeButton">
-			<i class="fas fa-home"></i>
-		</button>
-		<div class="stats">
-			<span>Total Tabs: <span id="totalTabs">0</span></span>
-			<span>Total Windows: <span id="totalWindows">0</span></span>
+		<div class="header" id="headerDiv">
+			<div class="title" id="titleDiv">Opened Tabs</div>
+			<button id="homeButton">
+				<i class="fas fa-home"></i>
+			</button>
 		</div>
-		<div class="infoDiv" id="info"></div>
-		<div class="boundry-grid" id="boundaryGrid">
-			<!-- Windows will be dynamically added here using JavaScript -->
+		<div class="content" id="contentDiv">
+			<div class="stats">
+				<span>Total Tabs: <span id="totalTabs">0</span></span>
+				<span>Total Windows: <span id="totalWindows">0</span></span>
+			</div>
+			<div class="infoDiv" id="info"></div>
+			<div class="boundry-grid" id="boundaryGrid">
+				<!-- Windows will be dynamically added here using JavaScript -->
+			</div>
 		</div>
 		<button id="groupTabsButton">Group Tabs</button>
 
